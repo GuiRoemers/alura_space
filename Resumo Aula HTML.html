@@ -1,0 +1,123 @@
+<!-- Atalho para estrutura básica: ! -->
+
+<!DOCTYPE html> <!-- Define o tipo de documento como HTML5 -->
+<html lang="pt-BR"> <!-- Define o idioma da página -->
+<head>
+    <meta charset="UTF-8"> <!-- Define codificação de caracteres -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Responsividade -->
+    <title>Exemplo HTML Completo</title> <!-- Título da aba -->
+    <style>
+        body { font-family: Arial; margin: 20px; } /* Estilo geral da página */
+        section { margin-bottom: 30px; } /* Espaçamento entre seções */
+        label { display: block; margin-top: 10px; } /* Labels em bloco */
+    </style>
+</head>
+<body>
+
+    <header> <!-- Cabeçalho da página -->
+        <h1>Cabeçalho Principal (h1)</h1> <!-- Título principal -->
+        <nav> <!-- Área de navegação -->
+            <a href="#">Link 1</a> <!-- Link clicável --> |
+            <a href="#">Link 2</a> <!-- Link clicável -->
+        </nav>
+    </header>
+
+    <section> <!-- Seção de conteúdo -->
+        <h2>Títulos e Texto</h2> <!-- Subtítulo -->
+        <h3>Subtítulo (h3)</h3> <!-- Subtítulo menor -->
+        <p>Parágrafo de exemplo.</p> <!-- Parágrafo -->
+        <strong>Texto forte</strong><br> <!-- Texto em negrito -->
+        <em>Texto em itálico</em><br> <!-- Texto em itálico -->
+        <mark>Texto destacado</mark><br> <!-- Texto com marcação -->
+        <small>Texto pequeno</small> <!-- Texto menor -->
+    </section>
+
+    <section>
+        <h2>Listas</h2>
+        <ul> <!-- Lista não ordenada -->
+            <li>Item não ordenado</li> <!-- Item da lista -->
+        </ul>
+        <ol> <!-- Lista ordenada -->
+            <li>Item ordenado</li> <!-- Item numerado -->
+        </ol>
+    </section>
+
+    <section>
+        <h2>Imagem</h2>
+        <img src="https://via.placeholder.com/150" alt="Imagem exemplo"> <!-- Exibe imagem -->
+    </section>
+
+    <section>
+        <h2>Formulário</h2>
+        <form> <!-- Formulário -->
+            <label>Texto:</label> <!-- Rótulo do campo -->
+            <input type="text" placeholder="Digite algo"> <!-- Campo de texto -->
+
+            <label>Email:</label>
+            <input type="email"> <!-- Campo de email com validação -->
+
+            <label>Senha:</label>
+            <input type="password"> <!-- Campo de senha (oculta caracteres) -->
+
+            <label>Número:</label>
+            <input type="number"> <!-- Campo numérico -->
+
+            <label>Data:</label>
+            <input type="date"> <!-- Seletor de data -->
+
+            <label>Checkbox:</label>
+            <input type="checkbox"> Aceito <!-- Caixa de seleção -->
+
+            <label>Radio:</label>
+            <input type="radio" name="opcao"> Opção 1 <!-- Botão de opção -->
+            <input type="radio" name="opcao"> Opção 2 <!-- Mesmo grupo (name igual) -->
+
+            <label>Combobox:</label>
+            <select> <!-- Lista suspensa -->
+                <option>Opção 1</option> <!-- Opção -->
+                <option>Opção 2</option>
+            </select>
+
+            <label>Textarea:</label>
+            <textarea></textarea> <!-- Campo de texto multilinha -->
+
+            <label>Upload:</label>
+            <input type="file"> <!-- Upload de arquivo -->
+
+            <br><br>
+            <button type="submit">Enviar</button> <!-- Envia formulário -->
+            <button type="reset">Limpar</button> <!-- Reseta campos -->
+        </form>
+    </section>
+
+    <section>
+        <h2>Tabela</h2>
+        <table border="1"> <!-- Tabela -->
+            <tr> <!-- Linha -->
+                <th>Nome</th> <!-- Cabeçalho da coluna -->
+                <th>Idade</th>
+            </tr>
+            <tr>
+                <td>João</td> <!-- Dado da célula -->
+                <td>25</td>
+            </tr>
+        </table>
+    </section>
+
+    <section>
+        <h2>Mídia</h2>
+        <audio controls> <!-- Player de áudio -->
+            <source src="audio.mp3" type="audio/mpeg"> <!-- Fonte do áudio -->
+        </audio>
+
+        <video width="320" controls> <!-- Player de vídeo -->
+            <source src="video.mp4" type="video/mp4"> <!-- Fonte do vídeo -->
+        </video>
+    </section>
+
+    <footer> <!-- Rodapé -->
+        <p>Rodapé da página</p>
+    </footer>
+
+</body>
+</html>

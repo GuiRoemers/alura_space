@@ -1,0 +1,196 @@
+# Definindo ambiente virtual
+
+python -m venv venv
+
+venv\Scripts\Activate.ps1
+
+
+
+# Iniciando projeto com django
+
+pip install django==4.1
+
+django-admin startproject setup .
+
+python manage.py runserver
+
+
+
+# Criar arquivos básicos de boas práticas
+
+# requirements.txt
+pip freeze > requirements.txt
+
+# .env
+pip install python-dotenv
+SECRET_KEY=<chave aleatória>
+
+# Importar em settings
+from pathlib import os
+from dotenv import load_dotenv
+
+#mudar no settings 
+load_dotenv()
+SECRET_KEY = str(os.getenv('SECRET_KEY'))
+LANGUAGE_CODE = 'pt-br'
+TIME_ZONE = 'America/Sao_Paulo'
+
+# .gitignore
+https://www.toptal.com/developers/gitignore/
+
+
+# Mantendo registros no GitHub
+
+git init
+
+git add .
+
+# Repositório local
+git commit -m "projeto alura_space"
+
+# Esse repositório local vai apontar para o repositório verdadeiro
+git remote add origin https://github.com/GuiRoemers/alura_space.git
+
+git push origin master
+
+
+# Começar de fato o aplicativo
+# Criar um app galeria para concentrar as imagens
+python manage.py startapp galeria
+
+# Adicionar 'galeria' no INSTALLED_APPS em settings.py
+
+INSTALLED_APPS = [
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'galeria',
+]
+
+# em views.py do app criado
+from django.http import HttpResponse
+
+def index(request):
+    return HttpResponse('<h1>Alura Space</h1><p>Bem-vindo ao Alura Space</p>')
+
+# em urls.py adicionar: 
+from galeria.views import index
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('', index) # A string vazia representa a rota
+]
+
+# Entretanto isso não é prático, pois cada rota precisa ser adicionada. Precisamos isolar urls
+em galeria criar um arquivo urls.py
+from django.urls import path
+from galeria.views import index
+
+
+urlpatterns = [
+    path('', index)
+]
+
+# E no arquivo urls.py do setup, apenas:
+
+from django.contrib import admin
+from django.urls import path, include
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('', include('galeria.urls')),
+]
+
+
+
+# Criar templates para organizar html
+Criar pasta templates no diretório principal (BASE_DIR)
+
+No arquivo settings.py, na constante TEMPLATES alterar: 'DIRS': [os.path.join(BASE_DIR, 'templates')],
+
+criar um arquivo index.html dentro de templates e usar o atalho ! para puxar a estrutura inicial
+
+Então, em views, alterar a função em views.py para 
+def index(request):
+    return render(request, 'index.html')
+
+Criar página em html
+
+
+
+# Carregar arquivos estáticos
+
+Em settings.py existe uma constante STATIC_URL
+Criar uma constante STATICFILES_DIRS = []
+
+Passar aqui os caminhos estáticos. Criar uma pasta dentro de setup chamada static
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'setup/static'),
+]
+
+# Criar constante STATIC_ROOT:
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+
+# Criar pastas de assets e styles dentro da pasta static
+
+# Rodar comando para o Django manipular estes arquivos estáticos
+
+python manage.py collectstatic
+
+python manage.py runserver
+
+
+
+# Para utilizar código python embedded dentro do html usar "{% 'meu_código_python' %}"
+
+# Adicionar no HTML linha que avisa que possui arquivos estáticos
+{% load static %}
+
+# Alterar linha que puxa os estilos diretamente para a pasta correta:
+<link rel="stylesheet" href="{% static '/styles/style.css' %}">
+
+# O caminho deve ser BASE_DIR, static/styles/style.css
+
+
+
+# Corrigir carregamento de imagens do assets da mesma maneira, adicionando código python. Segurando 'alt' é possível editar várias linhas ao mesmo tempo.
+
+
+
+# para corrigir os caminhos do html
+
+De:
+href="imagem.html"
+
+Para:
+href="{% url 'imagem' %}"
+
+e incluir no urls.py o 'name'
+path('imagem/', imagem, name='imagem'),
+
+
+
+
+# Evitar código repetitivo por meio do DRY (Dont Repeat Yourself)
+
+Criar um arquivo base.html em templates com o trecho repetido de código
+
+usar chamadas {% block content %}{% endblock %} indicando a localização dos blocos que serão adicionados de outros arquivos.
+
+Neste outros arquivos usar chamadas {% extends 'galeria/base.html' %}, {% block content %} e {% endblock %}
+
+
+
+Quando temos regiões repetidas com botões, rodapés, etc, chamamos de partials. 
+
+Criar uma pasta partials dentro de templates. Dentro dela criar um arquivo _footer.html
+
+no local que queremos adicionar, usar a tag {% include 'galeria/partials/_footer.html' %}
+
+
