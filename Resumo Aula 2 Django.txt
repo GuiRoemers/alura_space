@@ -1,0 +1,46 @@
+# Para puxar um projeto em andamento:
+git clone https://github.com/GuiRoemers/alura_space.git
+
+# Criar um dicionário dentro de da função index para passar os dados.
+
+# Criar uma estrutura de repetição no html para os cards
+{% for foto_id, info in cards.items %}
+{% endfor %}
+
+puxar as variáveis por {{ info.nome }}, {{ info.legenda }}
+
+
+
+# É melhor fazer isso por banco de dados.
+
+# No arquivo models.py dentro de galeria criar a classe desejada.
+
+# Informar o app que criamos e migrar para um banco de dados:
+
+python manage.py makemigrations
+python manage.py migrate
+
+# A ORM do Django traduz o código python em SQL de maneira simples
+
+# Para criar itens no banco de dados:
+python manage.py shell
+from galeria.models import Fotografia
+foto = Fotografia(nome="Nebulosa de Carina", legenda="webbtelescope.org / NASA / James Webb", foto="carina-nebula.png")
+foto.save()
+
+#Para ver os dados criados
+Fotografia.objects.all()
+
+
+
+# Linkar com o arquivo apps.py e alterar no settings.py
+
+INSTALLED_APPS = [
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'galeria.apps.GaleriaConfig',
+]

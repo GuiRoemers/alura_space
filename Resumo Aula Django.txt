@@ -53,6 +53,9 @@ git remote add origin https://github.com/GuiRoemers/alura_space.git
 
 git push origin master
 
+# Para puxar um projeto em andamento:
+git clone https://github.com/GuiRoemers/alura_space.git
+
 
 # Começar de fato o aplicativo
 # Criar um app galeria para concentrar as imagens
