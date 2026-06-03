@@ -44,3 +44,87 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'galeria.apps.GaleriaConfig',
 ]
+
+
+# Para puxar os itens do banco de dados, fazer dentro do index(): 
+fotografias = Fotografia.objects.all()
+
+
+# Dentro do index, alterar estrutura de repetição:
+{% if cards %}
+{% for fotografia in cards %}
+
+
+
+# Adicionar novo item no banco de dados!!!!
+
+python manage.py shell
+from galeria.models import Fotografia
+foto = Fotografia(nome="Galáxia NGC 1079", legenda="nasa.org / NASA / Hubble", foto="hubble-ngc-1079.png")
+foto.save()
+
+
+# Para referenciar um item específico. No index.html:
+<a href="{% url 'imagem' fotografia.id %}">
+
+# No urls.py:
+path('imagem/<int:foto_id>', imagem, name='imagem'),
+
+# No views.py:
+from django.shortcuts import render, get_object_or_404
+
+def imagem(request, foto_id):
+    fotografia = get_object_or_404(Fotografia, pk=foto_id)
+    return render(request, 'galeria/imagem.html', {"fotografia": fotografia})
+
+# No imagem.html deixar tudo dinâmico
+
+
+
+
+
+# Django admin
+
+# Criar um superuser
+python manage.py createsuperuser
+
+# Em admin.py
+
+from django.contrib import admin
+from galeria.models import Fotografia
+
+class ListandoFotografias(admin.ModelAdmin):
+    list_display = ('id', 'nome', 'legenda', 'foto')
+    list_display_links = ('nome',)
+    search_fields = ('nome',)
+    # list_filter = ('categoria',)
+
+# Register your models here.
+admin.site.register(Fotografia, ListandoFotografias)
+
+
+
+# Sempre que alterarmos o model precisamos fazer uma makemigrations
+python manage.py makemigrations
+python manage.py migrate
+
+
+
+# Para adicionar media, mexer no settings:
+
+# Media
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+MEDIA_URL = '/media/'
+
+# Ir no urls.py do setup
+
+from django.conf import settings
+from django.conf.urls.static import static
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('', include('galeria.urls')),
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
